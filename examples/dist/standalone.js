@@ -1877,7 +1877,12 @@ var Select = _react2['default'].createClass({
 
 		var focusedOption = this.state.focusedOption || selectedOption;
 		if (focusedOption && !focusedOption.disabled) {
-			var focusedOptionIndex = options.indexOf(focusedOption);
+			if (!_.isObject(focusedOption)) {
+				focusedOption = { value: focusedOption };
+			}
+			var focusedOptionIndex = options.findIndex(function (option) {
+				return option.value == focusedOption.value;
+			});
 			if (focusedOptionIndex !== -1) {
 				return focusedOptionIndex;
 			}
